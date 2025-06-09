@@ -1,0 +1,367 @@
+#include <iostream>
+
+using namespace std;
+/*class Node {
+public:
+    int data;
+    Node* prev;
+    Node* next;
+
+    Node(int value) {
+        data = value;
+        prev = nullptr;
+        next = nullptr;
+    }*/
+class stops {
+    public:
+    int stopNumber ;
+    stops* prev;
+    stops * next ;
+
+    stops( ){
+    stopNumber= 0 ;
+    stops * next =nullptr;
+    }
+};
+class DoublyLinkedListStops {
+private:
+    stops* head;
+    stops* tail;
+    int size;
+
+public:
+    void print ( ){
+    stops * current = head ;
+    while (current ->next!= nullptr){
+        cout << current->stopNumber << endl;
+        current= current->next ;
+    }        cout << current->stopNumber << endl;
+
+    cout << endl;
+    }
+    // Constructor
+    DoublyLinkedListStops() {
+        head = nullptr;
+        tail = nullptr;
+        size = 0;
+    }
+
+    // Destructor to free memory
+    ~DoublyLinkedListStops() {
+        stops* current = head;
+        while (current != nullptr) {
+            stops* next = current->next;
+            delete current;
+            current = next;
+        }
+    }
+
+    // Get the size of the list
+    int getSize() {
+        return size;
+    }
+
+    // Check if the list is empty
+    bool isEmpty() {
+        return size == 0;
+    }
+
+    // Add a node at the end of the list
+    void append(int value) {
+        stops* newNode = new stops( );
+        newNode->stopNumber = value ;
+        if (head == nullptr) {
+            head = tail = newNode;
+        } else {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+        size++;
+    }
+
+    // Add a node at the beginning of the list
+    void Add_at_first(int value) {
+        stops* newNode = new stops( );
+        newNode->stopNumber = value ;
+          stops * ptr = head ;
+        if (head == nullptr) {
+            head = tail = newNode;
+        } else {
+            newNode->next = ptr ;
+            ptr->prev = newNode;
+            newNode->prev = nullptr ;
+            head = newNode;
+            newNode = ptr ;
+        }
+        size++;
+    }
+
+    // Insert a node at a specific position
+    void insertAt(int value, int position) {
+        if (position < 0 || position > size) {
+            cout << "Invalid position!" << endl;
+            return;
+        }
+
+        if (position == 0) {
+       //     prepend(value);
+        } else if (position == size) {
+            append(value);
+        } else {
+            stops* newNode = new stops( );
+            newNode ->stopNumber = value ;
+            stops* current = head;
+
+            // Move to the position before insertion
+            for (int i = 0; i < position - 1; i++) {
+                current = current->next;
+            }
+
+            // Update pointers
+            newNode->next = current->next;
+            newNode->prev = current;
+            current->next->prev = newNode;
+            current->next = newNode;
+
+            size++;
+        }
+    }
+
+    // Delete a node by value (first occurrence)
+    void deleteByValue(int value) {
+        if (head == nullptr) return;
+
+        stops* current = head;
+
+        // Find the node to delete
+        while (current != nullptr && current->stopNumber != value) {
+            current = current->next;
+        }
+
+        if (current == nullptr) return; // Value not found
+
+        if (current == head) {
+            // Deleting head node
+            head = head->next;
+            if (head != nullptr) {
+                head->prev = nullptr;
+            } else {
+                tail = nullptr; // List is now empty
+            }
+        } else if (current == tail) {
+            // Deleting tail node
+            tail = tail->prev;
+            tail->next = nullptr;
+        } else {
+            // Deleting middle node
+            current->prev->next = current->next;
+            current->next->prev = current->prev;
+        }
+
+        delete current;
+        size--;
+    }
+
+    // Delete a node by position
+    void deleteAt(int position) {
+        if (position < 0 || position >= size) {
+            cout << "Invalid position!" << endl;
+
+        }} };
+class Line {
+    private :
+DoublyLinkedListStops line ;
+public:
+void add_stops_of_the_end_line (int value ){
+line.append(value) ;
+}
+void add_stops_of_the_first_line (int value ){
+line.Add_at_first(value) ;
+}
+void  print_list ( ){
+line.print( ) ;
+}
+
+
+};
+class Driver {
+    public:
+        Driver * next ;
+    string Driver_name ;
+int Driver_number ;
+    Driver (string name, int number ) {
+    Driver_name = name ;
+    Driver_number = number ;
+    next= nullptr;
+    }
+    int get_number_of_Driver (Driver * Drivers ){
+        return Drivers->Driver_number  ;
+    }
+
+    };
+ class linked_list_Driver {
+private :
+    Driver * head ;
+    int size ;
+public:
+   linked_list_Driver ( ){
+    head = nullptr ;
+    size =0 ;
+    }
+    Driver * ptr = head ;
+    Driver * b ;
+    int v ;
+        int number_of_Driver = b->get_number_of_Driver(ptr);
+    bool  search_Driver (int value ){
+    while(ptr != nullptr && number_of_Driver == value){
+        ptr = ptr->next ;
+        v = value ;
+    }
+    if ( v == number_of_Driver ){
+        return true ;
+    }
+    return false ;
+    }
+
+};
+class bus {
+public  :  bus* next;
+    bus* prev;
+    int number_of_bus;
+    Line bus_Line;
+    int capacity;
+    int speed;
+    Driver driver;  // تغيير الاسم من Drivers إلى driver لتجنب الالتباس
+    int Specil_seats;
+
+    enum class BusType {  // تغيير الاسم إلى BusType لتجنب التعارض
+        First_Class_bus,
+        second_Class_bus,
+        Third_Class_bus
+    };
+int get_number_of_bus (bus * buss ){
+        return buss->number_of_bus ;
+    }
+    BusType type;  // تغيير الاسم من bus_Type إلى type
+
+    bus(int value, BusType t, Line line, int capacity_bus, int speed_bus,
+        Driver driver_bus, int Specil_seat) :
+        number_of_bus(value), type(t), bus_Line(line), capacity(capacity_bus),
+        speed(speed_bus), driver(driver_bus), Specil_seats(Specil_seat) {
+        next = nullptr;
+        prev = nullptr;
+    } } ;
+    class doubly_linked_list_bus {
+private :
+    bus * head ;
+    bus * Tail ;
+    int size ;
+public:
+   doubly_linked_list_bus ( ){
+    head = nullptr ;
+    Tail = nullptr ;
+    size =0 ;
+    }
+    bus * ptr = head ;
+    bus * b ;
+    int v ;
+        int number_of_bus = b->get_number_of_bus(ptr);
+    bool  search_buss (int value ){
+    while(ptr != nullptr && number_of_bus == value){
+        ptr = ptr->next ;
+        v = value ;
+    }
+    if ( v == number_of_bus ){
+        return true ;
+    }
+    return false ;
+    }
+
+};
+
+ class Card {
+     public:
+    enum Card_Type {
+    vip ,Regular_Id
+    };
+ private :
+ string Card_name ;
+ float card_balance ; //رصيد مالي
+ int number_of_Card ;
+ Card_Type  Type ;
+ public:
+
+ Card (string name , int number ,  Card_Type card_type ,float balance ){
+ Card_name = name ;
+ number_of_Card= number ;
+ Type  = card_type ;
+ card_balance= balance;
+ }
+ };
+ class Passenger  {
+public:
+    Passenger * next ;
+    string name;
+    int number;
+    Card card;
+    Passenger(string Passenger_name, int Passenger_number, Card Passenger_Card)
+        : name(Passenger_name), number(Passenger_number), card(Passenger_Card) {}
+
+    int get_number_of_Passenger (Passenger * Passengers ){
+        return Passengers->number ;
+    }
+    };
+ class linked_list_Passenger {
+private :
+    Passenger * head ;
+    int size ;
+public:
+   linked_list_Passenger ( ){
+    head = nullptr ;
+    size =0 ;
+    }
+    Passenger * ptr = head ;
+    Passenger * b ;
+    int v ;
+        int number_of_Passenger = b->get_number_of_Passenger(ptr);
+    bool  search_Passenger (int value ){
+    while(ptr != nullptr && number_of_Passenger == value){
+        ptr = ptr->next ;
+        v = value ;
+    }
+    if ( v == number_of_Passenger ){
+        return true ;
+    }
+    return false ;
+    }
+
+};
+
+class Bagage {
+
+};
+
+class Transportation_department {
+doubly_linked_list_bus buss ;
+linked_list_Driver Drivers ;
+linked_list_Passenger Passengers ; 
+bool search_bus (int value){
+return buss.search_buss(value);
+}
+bool search_Driver (int value) {
+return Drivers.search_Driver(value) ;
+}
+bool search_Passenger (int value) {
+return Passengers.search_Passenger (value) ;
+}
+
+} ;
+
+
+
+
+int main () {
+cout << "h" ;
+return 0 ;
+}
