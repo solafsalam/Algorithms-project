@@ -1,0 +1,1031 @@
+#include <iostream>
+
+using namespace std;
+/*class Node {
+public:
+    int data;
+    Node* prev;
+    Node* next;
+
+    Node(int value) {
+        data = value;
+        prev = nullptr;
+        next = nullptr;
+    }*/
+class stops {
+    public:
+    int stopNumber ;
+    stops* prev;
+    stops * next ;
+
+    stops( ){
+    stopNumber= 0 ;
+    stops * next =nullptr;
+    }
+};
+class DoublyLinkedListStops {
+private:
+    stops* head;
+    stops* tail;
+    int size;
+
+public:
+    void print ( ){
+    stops * current = head ;
+    while (current ->next!= nullptr){
+        cout << current->stopNumber << endl;
+        current= current->next ;
+    }        cout << current->stopNumber << endl;
+
+    cout << endl;
+    }
+    // Constructor
+    DoublyLinkedListStops() {
+        head = nullptr;
+        tail = nullptr;
+        size = 0;
+    }
+
+    // Destructor to free memory
+    ~DoublyLinkedListStops() {
+        stops* current = head;
+        while (current != nullptr) {
+            stops* next = current->next;
+            delete current;
+            current = next;
+        }
+    }
+
+    // Get the size of the list
+    int getSize() {
+        return size;
+    }
+
+    // Check if the list is empty
+    bool isEmpty() {
+        return size == 0;
+    }
+
+    // Add a node at the end of the list
+    void append(int value) {
+        stops* newNode = new stops( );
+        newNode->stopNumber = value ;
+        if (head == nullptr) {
+            head = tail = newNode;
+        } else {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+        size++;
+    }
+
+    // Add a node at the beginning of the list
+    void Add_at_first(int value) {
+        stops* newNode = new stops( );
+        newNode->stopNumber = value ;
+          stops * ptr = head ;
+        if (head == nullptr) {
+            head = tail = newNode;
+        } else {
+            newNode->next = ptr ;
+            ptr->prev = newNode;
+            newNode->prev = nullptr ;
+            head = newNode;
+            newNode = ptr ;
+        }
+        size++;
+    }
+
+    // Insert a node at a specific position
+    void insertAt(int value, int position) {
+        if (position < 0 || position > size) {
+            cout << "Invalid position!" << endl;
+            return;
+        }
+
+        if (position == 0) {
+       //     prepend(value);
+        } else if (position == size) {
+            append(value);
+        } else {
+            stops* newNode = new stops( );
+            newNode ->stopNumber = value ;
+            stops* current = head;
+
+            // Move to the position before insertion
+            for (int i = 0; i < position - 1; i++) {
+                current = current->next;
+            }
+
+            // Update pointers
+            newNode->next = current->next;
+            newNode->prev = current;
+            current->next->prev = newNode;
+            current->next = newNode;
+
+            size++;
+        }
+    }
+
+    // Delete a node by value (first occurrence)
+    void deleteByValue(int value) {
+        if (head == nullptr) return;
+
+        stops* current = head;
+
+        // Find the node to delete
+        while (current != nullptr && current->stopNumber != value) {
+            current = current->next;
+        }
+
+        if (current == nullptr) return; // Value not found
+
+        if (current == head) {
+            // Deleting head node
+            head = head->next;
+            if (head != nullptr) {
+                head->prev = nullptr;
+            } else {
+                tail = nullptr; // List is now empty
+            }
+        } else if (current == tail) {
+            // Deleting tail node
+            tail = tail->prev;
+            tail->next = nullptr;
+        } else {
+            // Deleting middle node
+            current->prev->next = current->next;
+            current->next->prev = current->prev;
+        }
+
+        delete current;
+        size--;
+    }
+
+    // Delete a node by position
+    void deleteAt(int position) {
+        if (position < 0 || position >= size) {
+            cout << "Invalid position!" << endl;
+
+        }} };
+class Line {
+    private :
+DoublyLinkedListStops line ;
+public:
+    Line * next ;
+    Line * prev ;
+    string Line_name ;
+    Line ( string name){
+    Line_name= name ;
+    next = nullptr;
+    prev = nullptr;
+    }
+
+void add_stops_of_the_end_line (int value ){
+line.append(value) ;
+}
+void add_stops_of_the_first_line (int value ){
+line.Add_at_first(value) ;
+}
+void  print_list ( ){
+line.print( ) ;
+}
+
+
+};
+class DoublyLinkedListLine {
+    private :
+Line * head;
+Line * tail;
+
+    public :
+        DoublyLinkedListLine(  ){
+        head = nullptr;
+        tail = nullptr;
+        }
+};
+class Driver {
+    public:
+      struct DrivingLicense {
+        string licensenumber;    // رقم الرخصة
+        string expiryDate;       // تاريخ الانتهاء
+        string driverName;       // اسم السائق
+        int driverId;
+         void LicenseDetails() {
+            cout << "License details:\n"
+                << "* License number: " << licensenumber << "\n"
+                << "* Expiration date: " << expiryDate << "\n"
+                << "* Driver name: " << driverName << "\n"
+                << "* Driver's identification number: " << driverId << "\n";
+        }
+                bool isValid(string currentDate) {
+            return expiryDate > currentDate;
+        }
+        int getId ( ){
+        return driverId ;
+        }
+    };
+        Driver * next ;
+    string Driver_name ;
+    DrivingLicense c ;
+    bool isAssigned;
+	Driver* b;
+	int v;
+int Driver_Id ;
+    Driver (string name,string licNum, string licExpiry ) {
+    Driver_name = name ;
+    next= nullptr;
+        isAssigned = false;
+        c.licensenumber = licNum;
+        c.expiryDate = licExpiry;
+        c.driverName = name;
+        c.driverId = Driver_Id;
+    }
+
+        void printInfo() {
+        cout << " *Driver Name: " << Driver_name
+            << "\n *Driver's identification number: " << c.driverId
+            << "\n *Driving license: \n";
+        c.LicenseDetails();
+    }
+
+
+    int getId() {
+        return Driver_Id;
+    }
+
+    string getName() {
+        return Driver_name;
+    }
+
+    bool isLicenseValid(string date) {
+        return c.isValid(date);
+    }
+
+    bool getIsAssigned() {
+        return isAssigned;
+    }
+
+    int get_number_of_Driver (Driver * Drivers ){
+        return Drivers->Driver_Id  ;
+    }
+    void setAssigned(bool assigned) {
+        isAssigned = assigned;
+    }
+
+    DrivingLicense getLicense() {
+        return c;
+    }
+
+    };
+ class linked_list_Driver {
+private :
+    Driver * head ;
+    int size ;
+public:
+   linked_list_Driver ( ){
+    head = nullptr ;
+    size =0 ;
+    }
+    Driver * ptr = head ;
+    Driver * b ;
+    int v ;
+        int number_of_Driver = b->get_number_of_Driver(ptr);
+    bool  search_Driver (int value ){
+    while(ptr != nullptr && number_of_Driver == value){
+        ptr = ptr->next ;
+        v = value ;
+    }
+    if ( v == number_of_Driver ){
+        return true ;
+    }
+    return false ;
+    }
+
+};
+ class Card {
+     public:
+    enum Card_Type {
+  REGULAR,
+        VIP,
+        DISABLED    };
+ string Card_name ;
+ float card_balance ; //رصيد مالي
+ int number_of_Card ;
+ Card_Type  Type ;
+ public:
+
+ Card (string name , int number ,  Card_Type card_type ,float balance ){
+ Card_name = name ;
+ number_of_Card= number ;
+ Type  = card_type ;
+ card_balance= balance;
+ }
+    // دالة عرض معلومات الراكب
+    void printInfo()  {
+
+        cout << "card type: ";
+        switch (Type) {
+        case REGULAR:
+            cout << "regular card."; break;
+        case VIP:
+            cout << "VIP card."; break;
+        case DISABLED:
+            cout << "DISABLED card."; break;
+        }
+        cout << "\n";
+
+        cout << "\n" << "the balance is: " << card_balance << "\n";
+
+
+    }
+        // دع ثمن الرحلة و مجانية لـ VIP
+        // تعديل شرط
+    bool payForRide(float cost) {
+        if (!isVIP()) {
+            if (card_balance >= cost) {
+                card_balance -= cost;
+                return true;
+            }
+            return false;
+        }
+        // VIP لا يدفع ثمن الرحلة
+        return true;
+    }
+
+      bool isVIP() {
+        return Type == VIP;
+    }
+        float getBalance() {
+        return card_balance;
+    }
+        void recharge(float amount) {
+        card_balance += amount;
+    }
+     // دالة الصعود إلى الباص مع تطبق أولوية VIP
+    bool hasBoardingPriority()  {
+        return isVIP(); //
+    }
+ };
+class Baggage {
+    public:
+    Baggage * next ;
+    Baggage * prev ;
+float cost;
+		string description;
+
+		float size;
+			int id;  // أضفنا معرف للحقيبة
+    Baggage ( float c, float sz, Baggage* nxt, Baggage* prv ){
+        next = nullptr ;
+        prev = nullptr ;
+            cost = c;
+			size = sz;
+
+
+    }
+        Baggage ( ){
+        next = nullptr ;
+        prev = nullptr ;
+            cost = NULL;
+			size = NULL;
+			id =NULL ;
+
+
+    }
+
+
+};
+class DoublyLinkedListBaggage {
+    public:
+Baggage* head ;
+Baggage* Tail ;
+		static int nextId;
+		  // عداد لتعيين المعرفات
+		  		int baggageCount=0;
+
+DoublyLinkedListBaggage ( ){
+head = nullptr;
+Tail = nullptr;
+nextId =0;
+}
+Baggage b ;
+     int add_Baggage_at_end( ) {
+        Baggage* newNode = new Baggage( );
+        newNode->id = nextId ;
+        if (head == nullptr) {
+            head = Tail = newNode;
+        } else {
+            Tail->next = newNode;
+            newNode->prev = Tail;
+            Tail = newNode;
+        }
+nextId++ ;
+        return nextId ;
+    }
+    void displayAllBaggage() {
+			if (head == nullptr) {
+				cout << "No baggage items to display." << endl;
+				return;
+			}
+			cout << "\nCurrent Baggage List (" << baggageCount << " items):" << endl;
+
+			Baggage* current = head;
+			while (current != nullptr) {
+				cout << "ID: " << current->id << endl;
+				cout << "Description: " << current->description << endl;
+				cout << "Size: " << current->size << endl;
+				cout << "Cost: " << current->cost << endl;
+				current = current->next;
+			}
+		}
+
+    // Add a node at the beginning of the list
+    int Add_at_first( ) {
+        Baggage* newNode = new Baggage( );
+        newNode->id = nextId ;
+          Baggage * ptr = head ;
+        if (head == nullptr) {
+            head = Tail = newNode;
+        } else {
+            newNode->next = ptr ;
+            ptr->prev = newNode;
+            newNode->prev = nullptr ;
+            head = newNode;
+            newNode = ptr ;
+        }
+        baggageCount++;
+        return nextId ;
+    }
+
+
+bool addBaggageAtEnd(string item, float cost, float size, Card& c) {
+			if (c.isVIP()) {
+				cost *= 0.7f; // خصم 30% على الأمتعة
+			}
+
+			if (c.card_balance < cost) {
+				cout << "The card balance isn't sufficient to add luggage." << endl;
+				return false;
+			}
+			//     Baggage ( float c, float sz, Baggage* nxt, Baggage* prv ){
+
+			Baggage* newBaggage = new Baggage( cost, size, nullptr, Tail);
+
+			if (head == nullptr) {
+				head = Tail = newBaggage;
+			}
+			else {
+				Tail->next = newBaggage;
+				newBaggage->prev = Tail;
+				Tail = newBaggage;
+			}
+
+			c.card_balance -= cost;
+			baggageCount++;
+
+			cout << "Baggage added successfully: " << item
+				<< " (size is: " << size << ", cost is: " << cost << ")" << endl<< " (size is: " << size << ", cost is: " << cost << ")" << endl;
+			return true;
+		}
+		// دالة حذف الأمتعة حسب ID
+		bool removeBaggageById(int id) {
+			if (head == nullptr) {
+				cout << "Baggage is empty!!" << endl;
+				return false;
+			}
+
+			Baggage* current = head;
+
+			// البحث عن الحقيبة بالرقم المطلوب
+			while (current != nullptr && current->id != id) {
+				current = current->next;
+			}
+
+			// إذا لم يتم العثور على الحقيبة
+			if (current == nullptr) {
+				cout << "No baggage found with ID: " << id << endl;
+				return false;
+			}
+
+			// إعادة ربط العناصر المجاورة
+			if (current->prev != nullptr) {
+				current->prev->next = current->next;
+			}
+			else {
+				head = current->next; // إذا كانت الحقيبة الأولى
+			}
+
+			if (current->next != nullptr) {
+				current->next->prev = current->prev;
+			}
+			else {
+				Tail = current->prev; // إذا كانت الحقيبة الأخيرة
+			}
+
+			cout << "تم حذف الحقيبة (ID: " << current->id << "): "
+				<< current->description << endl;
+
+			delete current;
+			baggageCount--;
+			return true;
+		}
+
+
+
+};
+ class Passenger  {
+public:
+    Passenger * next ;
+    string name;
+    int id;
+   Card card ;
+    Baggage Passenger_Baggage ;
+     int freeRides; // الرحلات المجانية لـVIP
+    Passenger(string Passenger_name, int Passenger_number, Card Passenger_Card,    Baggage baggage )
+        : name(Passenger_name), id(Passenger_number), card(Passenger_Card) , Passenger_Baggage (baggage)  {}
+
+
+    int get_number_of_Passenger (Passenger * Passengers ){
+        return Passengers->id ;
+     }
+
+    // دالة عرض معلومات الراكب
+    void printInfo()  {
+        cout << "\n passenger information:\n";
+        cout << "the passdenger name: " << name << "\n";
+        cout << "card id: " << id << "\n";
+        cout << "card type: ";
+        card.printInfo() ;
+
+
+    }
+    int getId() {
+        return id;
+    }
+    string getName() {
+        return name;
+    }
+
+    } ;
+ class DoublyLinkedListPassenger {
+public:
+
+    Passenger * head ;
+        Passenger * Tail ;
+
+    int size ;
+   DoublyLinkedListPassenger ( ){
+    head = nullptr ;
+    size =0 ;
+    }
+    Passenger * ptr = head ;
+    Passenger * b ;
+    int v ;
+        int number_of_Passenger = b->get_number_of_Passenger(ptr);
+    bool  search_Passenger (int value ){
+    while(ptr != nullptr && number_of_Passenger == value){
+        ptr = ptr->next ;
+        v = value ;
+    }
+    if ( v == number_of_Passenger ){
+        return true ;
+    }
+    return false ;
+    }
+	bool addBaggage(const string& item, float cost, float size) {
+			// تنفيذ إضافة الأمتعة حسب الحاجة
+			return true;
+		}
+
+		// دالة لحذف الأمتعة
+		bool removeBaggage(int baggageId) {
+			// تنفيذ حذف الأمتعة حسب الحاجة
+			return true;
+		}
+
+};
+class Bus {
+public:		// نوع المقعد
+		enum SeatType {
+			REGULAR,
+			DISABLED_ACCESSIBLE
+		};
+
+		// نوع الباص
+		enum BusType {
+			MINI,
+			MEDIUM,
+			LARGE
+		};
+int id;
+		int capacity;
+		int currentLineId;
+		int currentStopId;
+		float speed;
+		Driver* driver;
+		BusType type;
+		SeatType* seatTypes;
+		Baggage* baggageHead;
+		float maxBaggageVolume;
+		float usedVolume;
+		float totalFees;
+		int baggageCount;
+DoublyLinkedListPassenger Passengers ;
+Bus * next ;
+Bus * brev ;
+		int passengerCount;
+
+
+	public:
+		Bus(int busId, BusType busType, int line, int stop,		Driver* drivers,Bus * nextt , Bus * breev)
+		{  driver = drivers ;
+			id = id;
+			type = type;
+			currentLineId = line;
+			currentStopId = stop;
+			baggageCount = 0;
+			driver = nullptr;
+			baggageHead = nullptr;
+			usedVolume = 0;
+			totalFees = 0;
+			passengerCount = 0;
+			Passengers.head = nullptr;
+			Passengers.Tail = nullptr;
+			next = nextt;
+			brev= breev;
+
+			switch (type) {
+			case MINI:
+				capacity = 20;
+				speed = 80.0f;
+				maxBaggageVolume = 5.0f;
+				break;
+			case MEDIUM:
+				capacity = 40;
+				speed = 90.0f;
+				maxBaggageVolume = 10.0f;
+				break;
+			case LARGE:
+				capacity = 80;
+				speed = 70.0f;
+				maxBaggageVolume = 15.0f;
+				break;
+			}
+			// توزيع أنواع المقاعد حسب نوع الباص
+			seatTypes = new SeatType[capacity];
+			for (int i = 0; i < capacity; i++) {
+				if (i < 5) { // أول 5 مقاعد مخصصة
+					seatTypes[i] = SeatType(DISABLED_ACCESSIBLE);
+				}
+
+				else {
+					seatTypes[i] = SeatType(REGULAR);
+				}
+			}
+
+		}
+int get_number_of_bus (Bus * ptr ){
+return ptr->id ;
+}
+		bool assignDriver(Driver* newDriver, string currentDate) {
+			if (newDriver == nullptr) {
+				cout << "Error: Driver is null\n";
+				return false;
+			}
+
+			// التحقق من صلاحية الرخصة
+			if (!newDriver->isLicenseValid(currentDate)) {
+				cout << "Driver cannot be assigned! Expired license\n";
+				return false;
+			}
+
+			driver = newDriver;
+			driver->setAssigned(true);
+			cout << "Driver " << driver->getName() << " assigned to Bus: " << id << endl;
+			return true;
+		}
+		void removeDriver() {
+			if (driver != nullptr) {
+				driver->setAssigned(false);
+				cout << "Driver " << driver->getName() << " removed from Bus: " << id << endl;
+				driver = nullptr;
+			}
+		}
+
+		// دالة نقل السائق مع جميع الشروط
+		bool transferDriver(Driver* driver, Bus* targetBus, float payment, string currentDate) {
+			// الشرط 1: السائق غير معين حالياً
+			if (driver->getIsAssigned()) {
+				cout << "The driver is currently assigned and cannot be transferred.\n";
+				return false;
+			}
+
+			// الشرط 2: الباص الهدف لا يملك سائق حالياً
+			if (targetBus->driver != nullptr) {
+				cout << "The target bus already has a driver.\n";
+				return false;
+			}
+			// الشرط 3: التحقق من صلاحية الرخصة
+			if (!driver->isLicenseValid(currentDate)) {
+				cout << "Expired driving license.\n";
+				return false;
+			}
+
+			// الشرط 4: وجود بدل نقل
+			if (payment <= 0) {
+				cout << "An amount must be specified for the transfer.\n";
+				return false;
+			}
+
+			// إذا تحققت جميع الشروط
+			targetBus->assignDriver(driver, currentDate);
+			cout << "The driver was successfully transferred for a fee: " << payment << "\n";
+			return true;
+		}
+		// إضافة راكب
+	/*	bool addPassenger(string name,int id,Card card ,Baggage Passenger_Baggage ) {
+			if (passengerCount >= capacity) {
+				cout << "Bus is full!" << endl;
+				return false;
+			}
+
+			Passenger* newNode = new Passenger(name , id ,card ,Passenger_Baggage);
+
+			if (Passengers.head == nullptr) {
+				Passengers.head= Passengers.Tail = newNode;
+			}
+			else if (p->hasBoardingPriority()) {
+				newNode->next = firstPassenger;
+				firstPassenger = newNode;
+			}
+			else {
+				lastPassenger->next = newNode;
+				lastPassenger = newNode;
+			}
+
+			passengerCount++;
+			cout << "Passenger " << p->getId() << " boarded the bus";
+			if (p->hasBoardingPriority()) cout << " (with priority)";
+			cout << endl;
+
+			return true;
+		}*/
+
+
+		// إزالة راكب
+	/*	bool removePassenger(string name ,int passengerId, Card card ,Baggage baggeg ) {
+			Passenger* current = new Passenger (name , passengerId , card , baggeg );
+			current* prev = nullptr;
+			bool found = false;
+
+			while (current != nullptr) {
+				if (current->passenger->getId() == passengerId) {
+					if (prev == nullptr) {
+						firstPassenger = current->next;
+					}
+					else {
+						prev->next = current->next;
+					}
+
+					if (current == lastPassenger) {
+						lastPassenger = prev;
+					}
+
+					delete current;
+					passengerCount--;
+					found = true;
+					cout << "Passenger " << passengerId << " removed from bus" << endl;
+					break;
+				}
+
+				prev = current;
+				current = current->next;
+			}
+
+			if (!found) {
+				cout << "Passenger " << passengerId << " not found on bus" << endl;
+			}
+
+			return found;
+		} */
+		// عرض الركاب
+	/*	void listPassengers() {
+			cout << "Passengers on bus " << id
+				<< " (" << passengerCount << "/" << capacity << "):" << endl;
+
+			Passenger* current = firstPassenger;
+			while (current != nullptr) {
+				current->passenger->printInfo();
+				cout << "-----------------" << endl;
+				current = current->next;
+			}
+		}*/
+
+/*
+		void addBaggage(int passengerId, string description, float fee, float size) {
+			// التحقق من عدم تجاوز السعة
+			if ((usedVolume + size) > maxBaggageVolume) {
+				cout << "No more luggage can be added, the baggage storage is full!\n";
+				return;
+			}
+
+			// إنشاء حقيبة جديدة
+			Baggage* newBaggage = new Baggage(passengerId, description, fee, size, baggageHead);
+			baggageHead = newBaggage;
+			totalFees += fee;
+			usedVolume += size;
+			baggageCount++;
+			cout << "Passenger bag added " << passengerId
+				<< " (" << description << ") with size " << size
+				<< " m3 for fee " << fee << endl;
+		}
+
+		// دالة حذف الحقيبة حسب passengerId
+		bool removeBaggage(int passengerId) {
+			Baggage* current = baggageHead;
+			Baggage* prev = nullptr;
+			bool found = false;
+
+			while (current != nullptr) {
+				if (current->passengerId == passengerId) {
+					// إزالة الحقيبة
+					if (prev == nullptr) {
+						baggageHead = current->next;
+					}
+					else {
+						prev->next = current->next;
+					}
+
+					totalFees -= current->StorageCost;
+					usedVolume -= current->size;
+					baggageCount--;
+					Baggage* temp = current;
+					current = current->next;
+					delete temp;
+
+					found = true;
+					cout << "Passenger bag removed " << passengerId << endl;
+				}
+				else {
+					prev = current;
+					current = current->next;
+				}
+			}if (!found) {
+				cout << "No luggage found for passenger " << passengerId << endl;
+			}
+
+			return found;
+		}
+		int getId() {
+			return id;
+		} */
+		// دالة طباعة معلومات الباص والمستودع
+		void printBusInfo() {
+			cout << "\n Bus Information \n";
+			cout << "Bus ID: " << id << endl;
+			cout << "Type: ";
+			switch (type) {
+			case MINI:
+				cout << "Mini";
+				break;
+			case MEDIUM:
+				cout << "Medium";
+				break;
+			case LARGE:
+				cout << "Large";
+				break;
+			}
+			cout << "\nCapacity: " << capacity << " passengers\n";
+			cout << "Current line: " << currentLineId << endl;
+			cout << "Current stop: " << currentStopId << endl;
+			cout << "Passengers: " << passengerCount << endl;
+			cout << "Baggage Count: " << baggageCount << endl;
+			if (driver != nullptr) {
+				cout << "Current driver: " << driver->getName() << endl;
+			}			else {
+				cout << "No driver assigned\n";
+			}
+
+			cout << "\n Baggage Storage \n";
+			cout << "Max volume: " << maxBaggageVolume << " \n";
+			cout << "Used volume: " << usedVolume << " \n";
+			cout << "Available volume: " << (maxBaggageVolume - usedVolume) << " \n";
+			cout << "Total fees collected: " << totalFees << endl;
+			cout << "\nBaggage items (" << baggageCount << "):\n";
+			if (baggageCount == 0) {
+				cout << "No baggage stored\n";
+			}
+			else {
+				Baggage* current = baggageHead;
+				while (current != nullptr) {
+					cout << "Passenger " << current->id
+						<< ": " << current->description
+						<< " (Size: " << current->size << " m3, Fee: "
+						<< current->cost << ")\n";
+					current = current->next;
+				}
+			}
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*int get_number_of_bus (bus * buss ){
+        return buss->number_of_bus ;
+    }
+    BusType type;
+
+    bus(int value, BusType t, Line line, int capacity_bus, int speed_bus,
+        Driver driver_bus, int Specil_seat) :
+        number_of_bus(value), type(t), bus_Line(line), capacity(capacity_bus),
+        speed(speed_bus), driver(driver_bus), Specil_seats(Specil_seat) {
+        next = nullptr;
+        prev = nullptr;
+    }
+    DoublyLinkedListBaggage Baggages ;
+
+    // Add a node at the beginning of the list
+    int Add_at_first( ) {
+return Baggages.Add_at_first( );
+        }
+            int add_Baggage_at_end( ) {
+return Baggages.add_Baggage_at_end( );
+        }
+
+*/
+
+
+    } ;
+    class doubly_linked_list_bus {
+private :
+    Bus * head ;
+    Bus * Tail ;
+    int size ;
+public:
+   doubly_linked_list_bus ( ){
+    head = nullptr ;
+    Tail = nullptr ;
+    size =0 ;
+    }
+    Bus * ptr = head ;
+    Bus * b ;
+    int v ;
+        int number_of_bus = b->get_number_of_bus(ptr);
+    bool  search_buss (int value ){
+    while(ptr != nullptr && number_of_bus != value){
+        ptr = ptr->next ;
+    }
+    if ( ptr->id == number_of_bus ){
+        return true ;
+    }
+    return false ;
+    }
+
+};
+
+class Transportation_department {
+doubly_linked_list_bus buss ;
+linked_list_Driver Drivers ;
+DoublyLinkedListPassenger Passengers ;
+bool search_bus (int value){
+return buss.search_buss(value);
+}
+bool search_Driver (int value) {
+return Drivers.search_Driver(value) ;
+}
+bool search_Passenger (int value) {
+return Passengers.search_Passenger (value) ;
+}
+
+} ;
+
+
+
+
+int main () {
+cout << "h" ;
+return 0 ;
+}
